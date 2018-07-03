@@ -73,6 +73,10 @@ module.exports = {
     log_file: {
       description: 'log to a file instead of stdout'
     },
+    configurator: {
+      type: 'object',
+      description: 'dynamic configuration'
+    },
     buckets: {
       type: 'object',
       description: 'The configuration for all bucket types',
