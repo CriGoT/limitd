@@ -48,4 +48,26 @@ describe('wrong requests', function () {
 
   });
 
+  it('should disconnect the socket on unknown bucket type', function (done) {
+    const socket = new Socket();
+    const Request  = require('limitd-protocol').Request;
+
+    socket.connect(address.port, address.address)
+      .once('connect', function () {
+        const stream = lps.encode();
+        stream.pipe(socket);
+        stream.write(Request.encode({
+          id: '123',
+          type: 'unknown_bucket',
+          key: 'key',
+          method: 'PUT',
+          skipResponse: true,
+          all: true
+        }));
+      }).once('close', function () {
+        done();
+      });
+
+  });
+
 });
